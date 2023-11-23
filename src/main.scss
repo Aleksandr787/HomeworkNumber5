@@ -1,7 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
+$tablet-media: 700px;
+$phone-media: 500px;
+
 :root {
+    /* headline - large */
+    --md-sys-typescale-headline-font-family-style: Medium;
+    --md-sys-typescale-headline-font-weight: 500px;
+    --md-sys-typescale-headline-font-size: 14px;
+    --md-sys-typescale-headline-line-height: 20px;
+    --md-sys-typescale-headline-letter-spacing: 0.1px;
+
+    /* label - large */
+    --md-sys-typescale-label-large-font-family-style: Medium;
+    --md-sys-typescale-label-large-font-weight: 500px;
+    --md-sys-typescale-label-large-font-size: 14px;
+    --md-sys-typescale-label-large-line-height: 20px;
+    --md-sys-typescale-label-large-letter-spacing: 0.10px;
+    /* label - medium */
+    --md-sys-typescale-label-medium-font-family-style: Medium;
+    --md-sys-typescale-label-medium-font-weight: 500px;
+    --md-sys-typescale-label-medium-font-size: 12px;
+    --md-sys-typescale-label-medium-line-height: 16px;
+    --md-sys-typescale-label-medium-letter-spacing: 0.50px;
+
     //light
     --md-sys-color-surface-container-low-light: #f4f3f7;
     --md-sys-color-on-surface-variant-light: #43474e;
@@ -16,7 +39,8 @@
     --md-sys-color-secondary-container-dark: #3c4858;
     --md-sys-color-scrim-dark: #000000;
 
-    @media(prefers-color-scheme: light) {
+
+    @media(prefers-color-scheme: dark) {
         --md-sys-color-surface-container-low: var(--md-sys-color-surface-container-low-light);
         --md-sys-color-on-surface-variant: var(--md-sys-color-on-surface-variant-light);
         --md-sys-color-on-secondary-container: var(--md-sys-color-on-secondary-container-light);
@@ -24,7 +48,7 @@
         --md-sys-color-scrim: var(--md-sys-color-scrim-light);
     }
 
-    @media(prefers-color-scheme: dark) {
+    @media(prefers-color-scheme: light) {
         --md-sys-color-surface-container-low: var(--md-sys-color-surface-container-low-dark);
         --md-sys-color-on-surface-variant: var(--md-sys-color-on-surface-variant-dark);
         --md-sys-color-on-secondary-container: var(--md-sys-color-on-secondary-container-dark);
@@ -37,32 +61,67 @@ html,
 body {
     height: 100%;
     margin: 0px;
-    font-family: "Roboto";
+    font-family: "Roboto", sans-serif;
 }
 
 .container {
     height: 100%;
     margin: 0px;
-    background: var(--md-sys-color-scrim);
+    display: grid;
+    grid-template-columns: 360px 1fr;
+
+    @media(max-width: $tablet-media) {
+        grid-template-columns: 80px 1fr;
+    }
+
+    //background: var(--md-sys-color-scrim);
     //padding-block: 8px;
+}
+
+.main {
+    height: 100%;
+    margin: 0px;
+    background: var(--md-sys-color-scrim);
 }
 
 .navigation {
     height: 100%;
     width: 360px;
     background: var(--md-sys-color-surface-container-low);
-    border-radius: 0px 24px 24px 0px;
+    //border-radius: 0px 24px 24px 0px;
+    box-sizing: border-box;
     padding-inline: 28px;
     overflow: auto;
 
+    @media(max-width: $tablet-media) {
+        width: 80px;
+        padding-inline: 12px;
+    }
+
     &__category {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
         padding-bottom: 12px;
         border-bottom: 1px solid rgb(0, 0, 0);
 
-        &__name {
+        &__headline {
             display: flex;
             margin: 32px 0px 16px 0px;
             color: var(--md-sys-color-on-surface-variant);
+            font-weight: var(--md-sys-typescale-headline-font-weight);
+            font-size: var(--md-sys-typescale-headline-font-size);
+            line-height: var(--md-sys-typescale-headline-line-height);
+            letter-spacing: var(--md-sys-typescale-headline-letter-spacing);
+
+            @media(max-width: $tablet-media) {
+                //display: none;
+                margin: 16px 0px 12px 0px;
+                align-items: center;
+                justify-content: center;
+            }
+
         }
 
         &__item {
@@ -73,6 +132,11 @@ body {
             height: 56px;
             border-radius: 24px;
 
+            @media(max-width: $tablet-media) {
+                flex-direction: column;
+                gap: 4px;
+            }
+
             &__icon {
                 color: var(--md-sys-color-on-surface-variant);
                 //height: 24px;
@@ -81,29 +145,50 @@ body {
 
             &__name {
                 color: var(--md-sys-color-on-surface-variant);
+                font-weight: var(--md-sys-typescale-label-large-font-weight);
+                font-size: var(--md-sys-typescale-label-large-font-size);
+                line-height: var(--md-sys-typescale-label-large-line-height);
+                letter-spacing: var(--md-sys-typescale-label-large-letter-spacing);
+
+
             }
 
             &:hover {
                 cursor: pointer;
                 background: var(--md-sys-color-secondary-container);
-                width: 376px;
+                width: 320px;
                 margin-left: -16px;
                 padding-left: 16px;
                 transition-duration: 0.2s;
+
+                @media(max-width: $tablet-media) {
+                    cursor: default;
+                    background: var(--md-sys-color-surface-container-low);
+                    width: auto;
+                    margin-left: 0px;
+                    padding-left: 0px;
+                }
+
             }
 
-            &:hover &__icon{
+            &:hover &__icon {
                 color: var(--md-sys-color-on-secondary-container);
+
+                @media(max-width: $tablet-media) {
+                    cursor: pointer;
+                    background: var(--md-sys-color-secondary-container);
+                    border-radius: 24px;
+                    padding-inline: 16px;
+                    padding-block: 4px;
+                }
             }
 
-            
-            &:hover &__name{
+            &:hover &__name {
                 color: var(--md-sys-color-on-secondary-container);
             }
 
             &:active {
-                background: #d48edf;
-                //color: white;
+                background: rgb(189, 227, 234);
             }
         }
     }
